@@ -1,0 +1,31 @@
+[
+    {
+        "id": 1,
+        "parcelas": 36,
+        "valorEmprestimo": 5000.0,
+        "taxaJuros": 2.5,
+        "valorParcela": 212.26,
+        "instituicoes":
+        [
+            {
+                "id": 1,
+                "nome": "Instituicao A"
+            },
+            {
+                "id": 2,
+                "nome": "Instituicao B"
+            }
+        ],
+        "convenios":
+        [
+            {
+                "id": 2,
+                "nome": "Convênio 2"
+            },
+            {
+                "id": 3,
+                "nome": "Convênio 3"
+            }
+        ]
+    }
+]
