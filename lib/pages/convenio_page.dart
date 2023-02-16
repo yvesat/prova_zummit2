@@ -46,7 +46,7 @@ class _ConvenioPageState extends ConsumerState<ConvenioPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 32),
                   child: Text(
-                    "Selecione um ou mais Convênio(s):",
+                    "Selecione um ou mais Convênios:",
                     style: TextStyle(fontSize: Dimensoes().fonte),
                   ),
                 ),

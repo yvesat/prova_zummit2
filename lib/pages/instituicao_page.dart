@@ -45,7 +45,7 @@ class _InstituicaoPageState extends ConsumerState<InstituicaoPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 32),
                   child: Text(
-                    "Selecione uma ou mais Instituição(ções):",
+                    "Selecione uma ou mais Instituições:",
                     style: TextStyle(fontSize: Dimensoes().fonte),
                   ),
                 ),

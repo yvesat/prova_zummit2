@@ -10,6 +10,9 @@ class Botao extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).colorScheme.secondary),
+        ),
         onPressed: _onClick,
         child: SizedBox(
           width: double.infinity,

@@ -1,7 +1,8 @@
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:money_formatter/money_formatter.dart';
 import 'package:prova_zummit/constantes/dimensoes.dart';
 import 'package:prova_zummit/pages/instituicao_page.dart';
 import 'package:prova_zummit/providers/emprestimo.dart';
@@ -27,19 +28,6 @@ class _ValorEmprestimoPageState extends ConsumerState<ValorEmprestimoPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
-    MoneyFormatter fmf = MoneyFormatter(
-      amount: valorEditado,
-      settings: MoneyFormatterSettings(
-        symbol: 'R\$',
-        thousandSeparator: '.',
-        decimalSeparator: ',',
-        symbolAndNumberSeparator: ' ',
-        fractionDigits: 2,
-      ),
-    );
-
-    MoneyFormatterOutput fo = fmf.output;
 
     return Stack(
       children: [
@@ -73,22 +61,16 @@ class _ValorEmprestimoPageState extends ConsumerState<ValorEmprestimoPage> {
                         child: TextFormField(
                           controller: _edtValorEmprestimo,
                           keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                          onChanged: (valor) {
-                            if (_edtValorEmprestimo.text == "") {
-                              setState(() {
-                                valorEditado = 0;
-                              });
-                            }
-                            setState(() {
-                              valorEditado = double.parse(_edtValorEmprestimo.text);
-                            });
-                          },
+                          inputFormatters: <TextInputFormatter>[
+                            CurrencyTextInputFormatter(
+                              locale: 'pt_BR',
+                              decimalDigits: 2,
+                              symbol: 'R\$ ',
+                            ),
+                          ],
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "Informe um valor válido.";
-                            }
-                            if (valorEditado <= 0) {
-                              return "Informe um valor maior que 0.";
                             }
                             return null;
                           },
@@ -98,7 +80,7 @@ class _ValorEmprestimoPageState extends ConsumerState<ValorEmprestimoPage> {
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: Text(
-                        fo.symbolOnLeft,
+                        valorEditado.toString(),
                         style: TextStyle(fontSize: Dimensoes().fonte),
                       ),
                     ),
@@ -129,10 +111,16 @@ class _ValorEmprestimoPageState extends ConsumerState<ValorEmprestimoPage> {
       await SincronismoService().carregarInstituicoes(ref);
       final emprestimo = ref.read(emprestimoProvider.notifier).recuperarEmprestimo();
 
+      final valor = _edtValorEmprestimo.text.replaceAll(",", "").replaceAll(".", "").replaceAll("R\$ ", "");
+
+      double valorDbl = double.parse(valor);
+
+      valorDbl = valorDbl * 0.01;
+
       if (emprestimo != null) {
-        ref.read(emprestimoProvider.notifier).editarEmprestimo(emprestimoId: emprestimo.id, valor: valorEditado);
+        ref.read(emprestimoProvider.notifier).editarEmprestimo(emprestimoId: emprestimo.id, valor: valorDbl);
       } else {
-        ref.read(emprestimoProvider.notifier).criarEmprestimo(Emprestimo(id: 0, valor: valorEditado, parcelamento: 1));
+        ref.read(emprestimoProvider.notifier).criarEmprestimo(Emprestimo(id: 0, valor: valorDbl, parcelamento: 1));
       }
       setState(() {
         _carregando = false;

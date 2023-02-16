@@ -13,6 +13,7 @@ class CampoSimulacao extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: <Widget>[
@@ -23,17 +24,15 @@ class CampoSimulacao extends StatelessWidget {
               ),
               Text(
                 label,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               const Spacer(),
             ],
           ),
           if (valor != null)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                valor ??= Text(""),
-              ],
+            Padding(
+              padding: const EdgeInsets.fromLTRB(40, 8, 0, 0),
+              child: valor ??= const Text(""),
             )
         ],
       ),

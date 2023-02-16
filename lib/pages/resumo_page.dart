@@ -79,18 +79,12 @@ class _ResumoPageState extends ConsumerState<ResumoPage> {
                           if (emprestimo.instituicoes!.isNotEmpty)
                             CampoSimulacao(
                               icon: FontAwesomeIcons.building,
-                              label: "Instituição",
-                            ),
-                        if (emprestimo.instituicoes != null)
-                          if (emprestimo.instituicoes!.isNotEmpty)
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: emprestimo.instituicoes!.length,
-                              itemBuilder: (_, i) => Padding(
-                                padding: const EdgeInsets.only(left: 16),
-                                child: Text(
+                              label: "Instituição:",
+                              valor: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: emprestimo.instituicoes!.length,
+                                itemBuilder: (_, i) => Text(
                                   emprestimo.instituicoes![i].nome,
-                                  textDirection: TextDirection.rtl,
                                 ),
                               ),
                             ),
@@ -98,18 +92,12 @@ class _ResumoPageState extends ConsumerState<ResumoPage> {
                           if (emprestimo.convenios!.isNotEmpty)
                             CampoSimulacao(
                               icon: FontAwesomeIcons.briefcase,
-                              label: "Convênio",
-                            ),
-                        if (emprestimo.convenios != null)
-                          if (emprestimo.convenios!.isNotEmpty)
-                            ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: emprestimo.convenios!.length,
-                              itemBuilder: (_, i) => Padding(
-                                padding: const EdgeInsets.only(left: 16),
-                                child: Text(
+                              label: "Convênio:",
+                              valor: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: emprestimo.convenios!.length,
+                                itemBuilder: (_, i) => Text(
                                   emprestimo.convenios![i].nome,
-                                  textDirection: TextDirection.rtl,
                                 ),
                               ),
                             ),

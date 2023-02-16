@@ -88,17 +88,11 @@ class _SimulacaoPageState extends ConsumerState<SimulacaoPage> {
                               CampoSimulacao(
                                 icon: FontAwesomeIcons.building,
                                 label: "Instituição",
-                              ),
-                          if (emprestimo.instituicoes != null)
-                            if (emprestimo.instituicoes!.isNotEmpty)
-                              ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: emprestimo.instituicoes!.length,
-                                itemBuilder: (_, i) => Padding(
-                                  padding: const EdgeInsets.only(left: 16),
-                                  child: Text(
+                                valor: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: emprestimo.instituicoes!.length,
+                                  itemBuilder: (_, i) => Text(
                                     emprestimo.instituicoes![i].nome,
-                                    textDirection: TextDirection.rtl,
                                   ),
                                 ),
                               ),
@@ -107,17 +101,11 @@ class _SimulacaoPageState extends ConsumerState<SimulacaoPage> {
                               CampoSimulacao(
                                 icon: FontAwesomeIcons.briefcase,
                                 label: "Convênio",
-                              ),
-                          if (emprestimo.convenios != null)
-                            if (emprestimo.convenios!.isNotEmpty)
-                              ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: emprestimo.convenios!.length,
-                                itemBuilder: (_, i) => Padding(
-                                  padding: const EdgeInsets.only(left: 16),
-                                  child: Text(
+                                valor: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: emprestimo.convenios!.length,
+                                  itemBuilder: (_, i) => Text(
                                     emprestimo.convenios![i].nome,
-                                    textDirection: TextDirection.rtl,
                                   ),
                                 ),
                               ),
@@ -126,7 +114,11 @@ class _SimulacaoPageState extends ConsumerState<SimulacaoPage> {
                               label: 'Parcelamento:',
                               valor: Text(
                                 "${vParcelaEmprestimoFormatada.symbolOnLeft.toString()} x ${emprestimo.parcelamento.toString()}",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontSize: Dimensoes().fonte,
+                                ),
                               )),
                           if (emprestimo.parcelamento! > 1)
                             Container(
@@ -139,25 +131,23 @@ class _SimulacaoPageState extends ConsumerState<SimulacaoPage> {
                                 ),
                               ),
                               height: size.height * 0.15,
-                              child: Scrollbar(
-                                child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: emprestimo.parcelamento,
-                                    itemBuilder: (_, i) {
-                                      final int parcela = i + 1;
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                        child: Row(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Scrollbar(
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: emprestimo.parcelamento,
+                                      itemBuilder: (_, i) {
+                                        final int parcela = i + 1;
+                                        return Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(parcela.toString()),
-                                            Text(
-                                              vParcelaEmprestimoFormatada.symbolOnLeft.toString(),
-                                            ),
+                                            Text(vParcelaEmprestimoFormatada.symbolOnLeft.toString()),
                                           ],
-                                        ),
-                                      );
-                                    }),
+                                        );
+                                      }),
+                                ),
                               ),
                             ),
                           CampoSimulacao(

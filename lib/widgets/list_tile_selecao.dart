@@ -15,6 +15,7 @@ class ListTieSelecao extends StatelessWidget {
       color: Theme.of(context).colorScheme.primaryContainer,
       child: ListTile(
         selected: selecionado,
+        selectedColor: Theme.of(context).colorScheme.outline,
         title: Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
         leading: selecionado ? const FaIcon(FontAwesomeIcons.solidSquareCheck) : const FaIcon(FontAwesomeIcons.square),
         onTap: () => marcar(),
